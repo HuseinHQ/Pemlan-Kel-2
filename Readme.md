@@ -20,3 +20,9 @@ Program ini adalah sebuah program kasir dimana kita bisa mensimulasikan bagaiman
 3. perulangan (looping)
 4. Struktur data array
 5. Struct
+
+**List menu yang ditawarkan:**
+1. Belanja alat tulis, makanan & minuman, atau keperluan rumah tangga
+2. List harga barang
+3. Total harga belanjaan
+4. Check out
