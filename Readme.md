@@ -7,3 +7,16 @@
 - Sulthan Ahmad Ferdiansyah (20081010156)
 - Suci Ismiati (20081010162)
 
+Deskripsi Project:
+Program ini adalah sebuah program kasir dimana kita bisa mensimulasikan bagaimana proses belanja di sebuah toko. Isi atau konten dari project ini adalah membeli barang, menampilkan list barang, mengkalkulasikan total harga, dan proses checkout.
+
+Data yang digunakan:
+1. Nama barang
+2. Harga Barang
+
+Metode yang diterapkan:
+1. Fungsi input dan output
+2. Percabangan (branching)
+3. perulangan (looping)
+4. Struktur data array
+5. Struct
