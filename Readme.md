@@ -6,14 +6,14 @@
 - Abraham Putra Christmas Kusumah (20081010155)
 - Sulthan Ahmad Ferdiansyah (20081010156)
 - Suci Ismiati (20081010162)
-\n
+
 Deskripsi Project:
 Program ini adalah sebuah program kasir dimana kita bisa mensimulasikan bagaimana proses belanja di sebuah toko. Isi atau konten dari project ini adalah membeli barang, menampilkan list barang, mengkalkulasikan total harga, dan proses checkout.
-\n
+
 **Data yang digunakan:**
 1. Nama barang
 2. Harga Barang
-\n
+
 **Metode yang diterapkan:**
 1. Fungsi input dan output
 2. Percabangan (branching)
