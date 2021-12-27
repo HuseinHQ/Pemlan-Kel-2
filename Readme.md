@@ -1,5 +1,5 @@
 ### Program Kasir
-![This is an image](file:///G:/File%20dan%20tugas/UPN/Matkul/Semester%203/Pemrograman%20Lanjut/ss%20aplikasi_1.png)
+![This is an image](file:///C:/Users/mhuse/OneDrive/Gambar/FP%20Pemlan/ss_aplikasi_1.html)
 **Anggota Kelompok:**
 - Reyhan Jarsi Yoga (20081010139)
 - Muhammad Husein Al Hakim (20081010128)
