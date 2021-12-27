@@ -28,4 +28,9 @@ Program ini adalah sebuah program kasir dimana kita bisa mensimulasikan bagaiman
 4. Check out
 
 **Cara penggunaan aplikasi:**
+1. User memasukkan pilihan menu 1-4
+2. Jika user memasukkan pilihan 1, maka program akan menampilkan macam-macam barang belanjaan, mulai dari alat tulis, makanan dan minuman, atau keperluan rumah tangga sesuai pilihan yang dimasukkan
+3. Jika user memasukkan pilihan 2, maka program akan menampilkan list harga barang belanjaan, mulai dari alat tulis, makanan dan minuman, atau keperluan rumah tangga
+4. Jika user memasukkan pilihan 3, maka program akan menampilkan total harga belanjaan dari barang yang dibeli
+5. Jika user memasukkan pilihan 4, maka akan ditampilkan proses check out 
 
