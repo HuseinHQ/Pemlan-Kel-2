@@ -26,3 +26,6 @@ Program ini adalah sebuah program kasir dimana kita bisa mensimulasikan bagaiman
 2. List harga barang
 3. Total harga belanjaan
 4. Check out
+
+**Cara penggunaan aplikasi:**
+
