@@ -2,6 +2,19 @@
 #include <string.h>
 #include <windows.h>
 
+void lanjut()
+{
+    char c;
+    printf(" \nIngin lanjut? (y/n): ");
+    fflush(stdin); scanf("%c", &c);
+    if(c=='n')
+    {
+        printf("Selesai, Terima Kasih!!!");
+        exit(0);
+    }
+    else
+        system("cls");
+}
 void garis(int x) {
 	int a;
 	for(a = 0; a < x; a++) {
@@ -13,35 +26,26 @@ void garis(int x) {
 typedef struct{
 char nama_barang[30];
 int harga_barang;
-}alat_tulis;
+char kategori[5];
+}produk;
 
-alat_tulis atk[10];
-
-typedef struct{
-char nama_barang[30];
-int harga_barang;
-}makanan_minuman;
-
-makanan_minuman mm[10];
+produk pd[30];
 
 typedef struct{
 char nama_barang[30];
+int jumlah_barang;
 int harga_barang;
-}keperluan_rumah_tangga;
+}keranjang;
 
-keperluan_rumah_tangga rt[10];
+keranjang kj[30];
 
-void belanja();
-void list_harga();
-void total_harga();
-void keranjang();
-void check_out();
-
+//variabel global
 int total=0;
+int l=0, length;
 
 void belanja()
 {
-    int i, j, jml, item;
+    int i, j, k, jml, item;
     belanja:
     garis(25);
     printf("|     Toko Bahagia!\t|\n");
@@ -62,25 +66,27 @@ void belanja()
 		printf("  |  Alat tulis   |\n");
 		printf("  ");
 		garis(17);
-		for(j=0; j<10; j++)
+		for(j=0; j<30; j++)
         {
-            printf("   (%d) %s (Rp.%d)\n", j+1, atk[j].nama_barang, atk[j].harga_barang);
+            if(strcmp(pd[j].kategori, "atk")==0)
+                printf("   (%d) %s (Rp.%d)\n", j+1 , pd[j].nama_barang, pd[j].harga_barang);
         }
         printf("\n");
-        printf("   Masukkan jumlah item: ");
+        printf("   Masukkan kode item (1-10): ");
+        scanf("%d", &item);
+        strcpy(kj[l].nama_barang, pd[item-1].nama_barang);
+        kj[l].harga_barang = pd[item-1].harga_barang;
+
+        printf("   Masukkan jumlah barang: ", j+1);
         scanf("%d", &jml);
-        
-        for(j=0; j<jml; j++)
-        {
-        	printf("   Pilih barang %d (1-10) ", j+1);
-        	scanf("%d", &item);
-        	total=total+atk[jml-1].harga_barang;
-		}
+        kj[l].jumlah_barang = jml;
+        l+=1;
+
 		printf("\n   Pesanan Anda Tersimpan!\n\n");
 		getchar();
         goto belanja;
     }
-    
+
     if(i==2)
     {
         printf("\n");
@@ -89,26 +95,27 @@ void belanja()
 		printf("  |  Makanan dan Minuman   |\n");
 		printf("  ");
 		garis(26);
-		for(j=0; j<10; j++)
+		for(j=0; j<30; j++)
         {
-            printf("   (%d) %s (Rp.%d)\n", j+1, mm[j].nama_barang, mm[j].harga_barang);
+            if(strcmp(pd[j].kategori, "mm")==0)
+                printf("   (%d) %s (Rp.%d)\n", j-9 , pd[j].nama_barang, pd[j].harga_barang);
         }
         printf("\n");
-        printf("   Masukkan jumlah item: ");
+        printf("   Masukkan kode item (1-10): ");
+        scanf("%d", &item);
+        strcpy(kj[l].nama_barang, pd[item+9].nama_barang);
+        kj[l].harga_barang = pd[item+9].harga_barang;
+
+        printf("   Masukkan jumlah barang: ", j+1);
         scanf("%d", &jml);
-        
-        for(j=0; j<jml; j++)
-        {
-        	printf("   Pilih barang %d (1-10) ", j+1);
-        	scanf("%d", &item);
-        	total=total+atk[jml-1].harga_barang;
-		}
-		printf("\n   Pesanan Anda Tersimpan!");
+        kj[l].jumlah_barang = jml;
+        l+=1;
+
+		printf("\n   Pesanan Anda Tersimpan!\n\n");
 		getchar();
         goto belanja;
-        
     }
-    
+
     if(i==3)
     {
         printf("\n");
@@ -117,34 +124,37 @@ void belanja()
 		printf("  |  Keperluan Rumah Tangga   |\n");
 		printf("  ");
 		garis(29);
-		for(j=0; j<10; j++)
+		for(j=0; j<30; j++)
         {
-            printf("   (%d) %s (Rp.%d)\n", j+1, rt[j].nama_barang, rt[j].harga_barang);
+            if(strcmp(pd[j].kategori, "rt")==0)
+                printf("   (%d) %s (Rp.%d)\n", j-19 , pd[j].nama_barang, pd[j].harga_barang);
         }
         printf("\n");
-        printf("   Masukkan jumlah item: ");
+        printf("   Masukkan kode item (1-10): ");
+        scanf("%d", &item);
+        strcpy(kj[l].nama_barang, pd[item+19].nama_barang);
+        kj[l].harga_barang = pd[item+19].harga_barang;
+
+        printf("   Masukkan jumlah barang: ", j+1);
         scanf("%d", &jml);
-        
-        for(j=0; j<jml; j++)
-        {
-        	printf("   Pilih barang %d (1-10) ", j+1);
-        	scanf("%d", &item);
-        	total=total+atk[jml-1].harga_barang;
-		}
-		printf("\n   Pesanan Anda Tersimpan!");
+        kj[l].jumlah_barang = jml;
+        l+=1;
+
+		printf("\n   Pesanan Anda Tersimpan!\n\n");
 		getchar();
         goto belanja;
     }
     if(i==4)
     {
-    	
+        system("cls");
+        main();
 	}
 }
 
 void list_harga()
 {
 	int i;
-	
+
 	printf("\n");
 	garis(25);
 	printf("|   List Harga Barang\t|\n");
@@ -152,33 +162,96 @@ void list_harga()
 	printf("  Harga Alat Tulis\n");
 	for (i=0; i<10; i++)
 	{
-		printf("  (%d) %s (Rp.%d)\n", i+1, atk[i].nama_barang, atk[i].harga_barang);
+		printf("  (%d) %s (Rp.%d)\n", i+1, pd[i].nama_barang, pd[i].harga_barang);
 	}
 	printf("\n");
 	printf("  Harga Makanan dan Minuman\n");
-	for (i=0; i<10; i++)
+	for (i=10; i<20; i++)
 	{
-		printf("  (%d) %s (Rp.%d)\n", i+1, mm[i].nama_barang, mm[i].harga_barang);
+		printf("  (%d) %s (Rp.%d)\n", i-9, pd[i].nama_barang, pd[i].harga_barang);
 	}
 	printf("\n");
 	printf("  Harga Keperluan Rumah Tangga\n");
-	for (i=0; i<10; i++)
+	for (i=20; i<30; i++)
 	{
-		printf("  (%d) %s (Rp.%d)\n", i+1, rt[i].nama_barang, rt[i].harga_barang);
+		printf("  (%d) %s (Rp.%d)\n", i-19, pd[i].nama_barang, pd[i].harga_barang);
 	}
 	getchar();
 }
 
+void search()
+{
+    int n, m;
+    char cari[30];
+    int flag = 0;
+
+    printf(" \n Cari berdasarkan:\n");
+    printf("  1. Nama Barang\n");
+    printf("  2. harga barang\n");
+    printf("  Masukkan pilihan:");
+    scanf("%d", &n);
+
+    printf("\n Pilih metode search yang anda inginkan:\n");
+    printf("  1. Sequential Search\n");
+    printf("  2. Binary Search\n");
+    printf("  3. Jump Search\n");
+    printf("  4. Interpolation Search\n");
+    printf("  Masukkan pilihan:");
+    scanf("%d", &m);
+
+    if(n==1 && m==1)
+    {
+        printf("\n Masukkan Nama Barang: "); fflush(stdin);
+        gets(cari);
+
+        for(n=0; n<length; n++)
+        {
+            if(strcmp(pd[n].nama_barang, cari)==0)
+                {flag = 1; break;}
+        }
+        if(flag == 1)
+        {
+            system("cls");
+            printf("\n Data ditemukan pada indeks ke-%d\n", n);
+            printf("  Nama Barang: %s\n", pd[n].nama_barang);
+            printf("  Harga Barang: %d\n", pd[n].harga_barang);
+        }
+        else
+        {
+            system("cls");
+            printf("Data tidak ditemukan");
+        }
+    }
+}
+
+void Belanjaan()
+{
+    int n;
+
+    system("cls");
+    printf(" List barang belanjaan Anda: \n");
+    for(n=0; n<l; n++)
+    {
+        printf("  (1) %s x %d\n", kj[n].nama_barang, kj[n].jumlah_barang);
+    }
+}
+
 void total_harga()
 {
-	printf("\n  Total harga belanjaan anda Rp.%d\n", total);
+	int n, total_per_item, total=0;
+	printf("\n Total harga belanjaan anda: \n");
+	for(n=0; n<l; n++)
+    {
+        total_per_item = kj[n].harga_barang * kj[n].jumlah_barang;
+        printf("  %s \t(Rp. %d) \tx %d \t= Rp. %d\n", kj[n].nama_barang, kj[n].harga_barang, kj[n].jumlah_barang, total_per_item);
+    }
 	getchar();
 }
 
 void checkout()
 {
 	int uang, kembali;
-	
+
 	bayar:
 	printf("\n");
 	printf("  Total pesanan Anda adalah Rp.%d\n", total);
@@ -199,69 +272,101 @@ void checkout()
 int main()
 {
     int n;
+    //Alat Tulis
+    strcpy(pd[0].nama_barang, "pensil 2B");
+    pd[0].harga_barang = 4000;
+    strcpy(pd[0].kategori, "atk");
+    strcpy(pd[1].nama_barang, "penghapus");
+    pd[1].harga_barang = 3500;
+    strcpy(pd[1].kategori, "atk");
+    strcpy(pd[2].nama_barang, "buku tulis");
+    pd[2].harga_barang = 5000;
+    strcpy(pd[2].kategori, "atk");
+    strcpy(pd[3].nama_barang, "penggaris 30 cm");
+    pd[3].harga_barang = 3000;
+    strcpy(pd[3].kategori, "atk");
+    strcpy(pd[4].nama_barang, "pulpen");
+    pd[4].harga_barang = 4000;
+    strcpy(pd[4].kategori, "atk");
+    strcpy(pd[5].nama_barang, "stipo");
+    pd[5].harga_barang = 7000;
+    strcpy(pd[5].kategori, "atk");
+    strcpy(pd[6].nama_barang, "rautan");
+    pd[6].harga_barang = 3000;
+    strcpy(pd[6].kategori, "atk");
+    strcpy(pd[7].nama_barang, "stabilo");
+    pd[7].harga_barang = 9000;
+    strcpy(pd[7].kategori, "atk");
+    strcpy(pd[8].nama_barang, "sticky notes");
+    pd[8].harga_barang = 4000;
+    strcpy(pd[8].kategori, "atk");
+    strcpy(pd[9].nama_barang, "paper clips");
+    pd[9].harga_barang = 3000;
+    strcpy(pd[9].kategori, "atk");
+    //Makanan dan Minuman
+    strcpy(pd[10].nama_barang, "Cheetos");
+    pd[10].harga_barang = 2100;
+    strcpy(pd[10].kategori, "mm");
+    strcpy(pd[11].nama_barang, "Lays");
+    pd[11].harga_barang = 2300;
+    strcpy(pd[11].kategori, "mm");
+    strcpy(pd[12].nama_barang, "Doritos");
+    pd[12].harga_barang = 2100;
+    strcpy(pd[12].kategori, "mm");
+    strcpy(pd[13].nama_barang, "Chitato");
+    pd[13].harga_barang = 3000;
+    strcpy(pd[13].kategori, "mm");
+    strcpy(pd[14].nama_barang, "Pringles");
+    pd[14].harga_barang = 4000;
+    strcpy(pd[14].kategori, "mm");
+    strcpy(pd[15].nama_barang, "Nuka Cola");
+    pd[15].harga_barang = 5000;
+    strcpy(pd[15].kategori, "mm");
+    strcpy(pd[16].nama_barang, "Sprote");
+    pd[16].harga_barang = 5000;
+    strcpy(pd[16].kategori, "mm");
+    strcpy(pd[17].nama_barang, "Pepso");
+    pd[17].harga_barang = 4500;
+    strcpy(pd[17].kategori, "mm");
+    strcpy(pd[18].nama_barang, "funta");
+    pd[18].harga_barang = 5000;
+    strcpy(pd[18].kategori, "mm");
+    strcpy(pd[19].nama_barang, "Teh Bundar");
+    pd[19].harga_barang = 6000;
+    strcpy(pd[19].kategori, "mm");
+    //Kebutuhan rumah tangga
+    strcpy(pd[20].nama_barang, "Detergen");
+    pd[20].harga_barang = 30000;
+    strcpy(pd[20].kategori, "rt");
+    strcpy(pd[21].nama_barang, "Pel");
+    pd[21].harga_barang = 25000;
+    strcpy(pd[21].kategori, "rt");
+    strcpy(pd[22].nama_barang, "Pengharum Ruangan");
+    pd[22].harga_barang = 15000;
+    strcpy(pd[22].kategori, "rt");
+    strcpy(pd[23].nama_barang, "Sabu");
+    pd[23].harga_barang = 20000;
+    strcpy(pd[23].kategori, "rt");
+    strcpy(pd[24].nama_barang, "Sabun");
+    pd[24].harga_barang = 5000;
+    strcpy(pd[24].kategori, "rt");
+    strcpy(pd[25].nama_barang, "Kemoceng");
+    pd[25].harga_barang = 12000;
+    strcpy(pd[25].kategori, "rt");
+    strcpy(pd[26].nama_barang, "Handuk");
+    pd[26].harga_barang = 9000;
+    strcpy(pd[26].kategori, "rt");
+    strcpy(pd[27].nama_barang, "Hand Sanitizer");
+    pd[27].harga_barang = 10000;
+    strcpy(pd[27].kategori, "rt");
+    strcpy(pd[28].nama_barang, "Taplak Meja");
+    pd[28].harga_barang = 12000;
+    strcpy(pd[28].kategori, "rt");
+    strcpy(pd[29].nama_barang, "Masker");
+    pd[29].harga_barang = 1000;
+    strcpy(pd[29].kategori, "rt");
 
-    strcpy(atk[0].nama_barang, "pensil 2B");
-    atk[0].harga_barang = 4000;
-    strcpy(atk[1].nama_barang, "penghapus");
-    atk[1].harga_barang = 3500;
-    strcpy(atk[2].nama_barang, "buku tulis");
-    atk[2].harga_barang = 5000;
-    strcpy(atk[3].nama_barang, "penggaris 30 cm");
-    atk[3].harga_barang = 3000;
-    strcpy(atk[4].nama_barang, "pulpen");
-    atk[4].harga_barang = 4000;
-    strcpy(atk[5].nama_barang, "stipo");
-    atk[5].harga_barang = 7000;
-    strcpy(atk[6].nama_barang, "rautan");
-    atk[6].harga_barang = 3000;
-    strcpy(atk[7].nama_barang, "stabilo");
-    atk[7].harga_barang = 9000;
-    strcpy(atk[8].nama_barang, "sticky notes");
-    atk[8].harga_barang = 4000;
-    strcpy(atk[9].nama_barang, "paper clips");
-    atk[9].harga_barang = 3000;
-    
-    strcpy(mm[0].nama_barang, "Cheetos");
-    mm[0].harga_barang = 2100;
-    strcpy(mm[1].nama_barang, "Lays");
-    mm[1].harga_barang = 2300;
-    strcpy(mm[2].nama_barang, "Doritos");
-    mm[2].harga_barang = 2100;
-    strcpy(mm[3].nama_barang, "Chitato");
-    mm[3].harga_barang = 3000;
-    strcpy(mm[4].nama_barang, "Pringles");
-    mm[4].harga_barang = 4000;
-    strcpy(mm[5].nama_barang, "Nuka Cola");
-    mm[5].harga_barang = 5000;
-    strcpy(mm[6].nama_barang, "Sprote");
-    mm[6].harga_barang = 5000;
-    strcpy(mm[7].nama_barang, "Pepso");
-    mm[7].harga_barang = 4500;
-    strcpy(mm[8].nama_barang, "funta");
-    mm[8].harga_barang = 5000;
-    strcpy(mm[9].nama_barang, "Teh Bundar");
-    mm[9].harga_barang = 6000;
-    
-    strcpy(rt[0].nama_barang, "Detergen");
-    rt[0].harga_barang = 30000;
-    strcpy(rt[1].nama_barang, "Pel");
-    rt[1].harga_barang = 25000;
-    strcpy(rt[2].nama_barang, "Pengharum Ruangan");
-    rt[2].harga_barang = 15000;
-    strcpy(rt[3].nama_barang, "Sabu");
-    rt[3].harga_barang = 20000;
-    strcpy(rt[4].nama_barang, "Sabun");
-    rt[4].harga_barang = 5000;
-    strcpy(rt[5].nama_barang, "Kemoceng");
-    rt[5].harga_barang = 12000;
-    strcpy(rt[6].nama_barang, "Handuk");
-    rt[6].harga_barang = 9000;
-    strcpy(rt[7].nama_barang, "Hand Sanitizer");
-    rt[7].harga_barang = 10000;
-    strcpy(rt[8].nama_barang, "Taplak Meja");
-    rt[8].harga_barang = 12000;
-    strcpy(rt[9].nama_barang, "Masker");
-    rt[9].harga_barang = 1000;
+    length = sizeof(pd)/sizeof(pd[0]);
 
 	menu:
 	garis(41);
@@ -271,22 +376,35 @@ int main()
     printf(" Silahkan pilih menu dibawah ini:\n");
     printf("  (1) Belanja\n");
     printf("  (2) List Harga Barang\n");
-    printf("  (3) Total harga belanjaan\n");
-    printf("  (4) Check out\n\n");
+    printf("  (3) Cari Barang\n");
+    printf("  (4) Keranjang\n");
+    printf("  (5) Total harga belanjaan\n");
+    printf("  (6) Check out\n\n");
     printf("  Masukkan pilihan: ");
     scanf("%d", &n);
 
     switch(n){
         case 1:
             belanja();
+            lanjut();
             goto menu;
         case 2:
         	list_harga();
+        	lanjut();
         	goto menu;
         case 3:
-        	total_harga();
-        	goto menu;
+            search();
+            lanjut();
+            goto menu;
         case 4:
+            Belanjaan();
+            lanjut();
+            goto menu;
+        case 5:
+        	total_harga();
+        	lanjut();
+        	goto menu;
+        case 6:
         	checkout();
         	break;
     }
