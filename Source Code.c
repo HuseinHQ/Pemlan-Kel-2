@@ -43,7 +43,7 @@ keranjang kj[30];
 //variabel global
 int total=0;
 int l=0, length=0;
-int penanda=0;
+int penanda=0, flagg=0;
 
 void belanja()
 {
@@ -194,7 +194,7 @@ void list_harga()
 
 void search()
 {
-    int n, m;
+    int n, m, awal, tengah, akhir;
     char cari[30];
     int flag = 0;
 
@@ -206,6 +206,7 @@ void search()
     printf("  Masukkan pilihan:");
     scanf("%d", &n);
 
+    //Sequential Search
     if(n==1)
     {
         printf("\n Masukkan Nama Barang: "); fflush(stdin);
@@ -229,11 +230,52 @@ void search()
             printf("Data tidak ditemukan");
         }
     }
+    //Binary Search
+    if(n==2)
+    {
+        if(flagg==0)
+        {
+            printf(" Data belum diurutkan\n");
+            printf(" Lakukan sorting terlebih dahulu!\n\n");
+            sort();
+        }
+        printf("Masukkan Nama Barang: ");
+        fflush(stdin); gets(cari);
+
+        int awal = 0;
+        int akhir = length-1;
+        tengah = (awal+akhir)/2;
+
+        for(n=0; n<length; n++)
+        {
+            if(strcmp(cari, pd[tengah].nama_barang)<0)
+            {
+                akhir = tengah-1;
+                tengah = (awal+akhir)/2;
+            }
+            else if(strcmp(cari, pd[tengah].nama_barang)>0)
+            {
+                awal = tengah+1;
+                tengah = (awal+akhir)/2;
+            }
+            else if(strcmp(cari, pd[tengah].nama_barang)==0)
+            {
+                flag = 1;
+                printf("Data ditemukan pada indeks ke-%d\n", tengah);
+                printf("Nama Barang: %s\n", pd[tengah].nama_barang);
+                printf("Harga Barang: %d\n", pd[tengah].harga_barang);
+                printf("Kategori: %s\n\n", pd[tengah].kategori);
+                break;
+            }
+        }
+        if(flag == 0)
+            printf("Data tidak ditemukan\n\n");
+    }
 }
 
 void sort()
 {
-    int n, m, inttemp, min, flagg=0;
+    int n, m, inttemp, min;
     char temp[30];
 
     printf("\n Urutkan data berdasarkan:\n");
@@ -242,7 +284,7 @@ void sort()
     printf("  Masukkan pilihan: ");
     fflush(stdin); scanf("%d", &n);
     if(n<1 || n>2)
-        {printf("\n Pilihan Tidak Tersedia!\n");flagg+=1;}
+        {printf("\n Pilihan Tidak Tersedia!\n"); main();}
     printf("\n Pilih Metode Sorting:\n");
     printf("  (1) Bubble Sort\n");
     printf("  (2) Selection Sort\n");
@@ -250,7 +292,7 @@ void sort()
     printf("  Masukkan pilihan: ");
     fflush(stdin); scanf("%d", &m);
     if(m<1 || m>3)
-        {printf("\n Pilihan Tidak Tersedia!\n"); flagg+=1;}
+        {printf("\n Pilihan Tidak Tersedia!\n");}
 
     //Bubble Sort Nama
     if(n==1 && m==1)
@@ -274,7 +316,7 @@ void sort()
                     strcpy(pd[m+1].kategori, temp);
                 }
             }
-        }
+        }flagg+=1;
     }
     //Selection Sort Nama
     else if(n==1 && m==2)
@@ -292,7 +334,7 @@ void sort()
             strcpy(temp, pd[n].nama_barang);
             strcpy(pd[n].nama_barang, pd[min].nama_barang);
             strcpy(pd[min].nama_barang, temp);
-            printf("%s\n", pd[n].nama_barang);
+
             inttemp = pd[n].harga_barang;
             pd[n].harga_barang = pd[min].harga_barang;
             pd[min].harga_barang = inttemp;
@@ -300,7 +342,7 @@ void sort()
             strcpy(temp, pd[n].kategori);
             strcpy(pd[n].kategori, pd[min].kategori);
             strcpy(pd[min].kategori, temp);
-        }
+        }flagg+=1;
     }
     //Insertion Sort Nama
     else if(n==1 && m==3)
@@ -324,9 +366,83 @@ void sort()
 
                 m--;
             }
-        }
+        }flagg+=1;
     }
-    if(flagg==0)
+    //Bubble Sort Harga
+    else if(n==2 && m==1)
+    {
+        for(n=0; n<length; n++)
+        {
+            for(m=0; m<length-n-1; m++)
+            {
+                if(pd[m].harga_barang>pd[m+1].harga_barang)
+                {
+                    strcpy(temp, pd[m].nama_barang);
+                    strcpy(pd[m].nama_barang, pd[m+1].nama_barang);
+                    strcpy(pd[m+1].nama_barang, temp);
+
+                    inttemp = pd[m].harga_barang;
+                    pd[m].harga_barang = pd[m+1].harga_barang;
+                    pd[m+1].harga_barang = inttemp;
+
+                    strcpy(temp, pd[m].kategori);
+                    strcpy(pd[m].kategori, pd[m+1].kategori);
+                    strcpy(pd[m+1].kategori, temp);
+                }
+            }
+        }flagg+=1;
+    }
+    //Selection Sort Harga
+    else if(n==2 && m==2)
+    {
+        for(n=0; n<=length; n++)
+        {
+            min = n;
+            for(m=1+n; m<length; m++)
+            {
+                if(pd[m].harga_barang<pd[min].harga_barang)
+                {
+                    min = m;
+                }
+            }
+            strcpy(temp, pd[n].nama_barang);
+            strcpy(pd[n].nama_barang, pd[min].nama_barang);
+            strcpy(pd[min].nama_barang, temp);
+
+            inttemp = pd[n].harga_barang;
+            pd[n].harga_barang = pd[min].harga_barang;
+            pd[min].harga_barang = inttemp;
+
+            strcpy(temp, pd[n].kategori);
+            strcpy(pd[n].kategori, pd[min].kategori);
+            strcpy(pd[min].kategori, temp);
+        }flagg+=1;
+    }
+    //Insertion Sort Harga
+    else if(n==2 && m==3)
+    {
+        for (n=1; n<length; n++)
+        {
+            m = n;
+            while(m>0 && pd[m].harga_barang<pd[m-1].harga_barang)
+            {
+                strcpy(temp, pd[m].nama_barang);
+                strcpy(pd[m].nama_barang, pd[m-1].nama_barang);
+                strcpy(pd[m-1].nama_barang, temp);
+
+                inttemp = pd[m].harga_barang;
+                pd[m].harga_barang = pd[m-1].harga_barang;
+                pd[m-1].harga_barang = inttemp;
+
+                strcpy(temp, pd[m].kategori);
+                strcpy(pd[m].kategori, pd[m-1].kategori);
+                strcpy(pd[m-1].kategori, temp);
+
+                m--;
+            }
+        }flagg+=1;
+    }
+    if(flagg==1)
     {
         penanda+=1;
         printf("\n  Barang telah diurutkan sesuai nama!\n");
@@ -388,96 +504,96 @@ int main()
     //Alat Tulis
     strcpy(pd[0].nama_barang, "Pensil 2B");
     pd[0].harga_barang = 4000;
-    strcpy(pd[0].kategori, "atk");
+    strcpy(pd[0].kategori, "Alat Tulis");
     strcpy(pd[1].nama_barang, "Penghapus");
     pd[1].harga_barang = 3500;
-    strcpy(pd[1].kategori, "atk");
+    strcpy(pd[1].kategori, "Alat Tulis");
     strcpy(pd[2].nama_barang, "Buku tulis");
     pd[2].harga_barang = 5000;
-    strcpy(pd[2].kategori, "atk");
+    strcpy(pd[2].kategori, "Alat Tulis");
     strcpy(pd[3].nama_barang, "Penggaris 30 cm");
     pd[3].harga_barang = 3000;
-    strcpy(pd[3].kategori, "atk");
+    strcpy(pd[3].kategori, "Alat Tulis");
     strcpy(pd[4].nama_barang, "Pulpen");
     pd[4].harga_barang = 4000;
-    strcpy(pd[4].kategori, "atk");
+    strcpy(pd[4].kategori, "Alat Tulis");
     strcpy(pd[5].nama_barang, "Stipo");
     pd[5].harga_barang = 7000;
-    strcpy(pd[5].kategori, "atk");
+    strcpy(pd[5].kategori, "Alat Tulis");
     strcpy(pd[6].nama_barang, "Rautan");
     pd[6].harga_barang = 3000;
-    strcpy(pd[6].kategori, "atk");
+    strcpy(pd[6].kategori, "Alat Tulis");
     strcpy(pd[7].nama_barang, "Stabilo");
     pd[7].harga_barang = 9000;
-    strcpy(pd[7].kategori, "atk");
+    strcpy(pd[7].kategori, "Alat Tulis");
     strcpy(pd[8].nama_barang, "Sticky notes");
     pd[8].harga_barang = 4000;
-    strcpy(pd[8].kategori, "atk");
+    strcpy(pd[8].kategori, "Alat Tulis");
     strcpy(pd[9].nama_barang, "Paper clips");
     pd[9].harga_barang = 3000;
-    strcpy(pd[9].kategori, "atk");
+    strcpy(pd[9].kategori, "Alat Tulis");
     //Makanan dan Minuman
     strcpy(pd[10].nama_barang, "Cheetos");
     pd[10].harga_barang = 2100;
-    strcpy(pd[10].kategori, "mm");
+    strcpy(pd[10].kategori, "Makanan dan Minuman");
     strcpy(pd[11].nama_barang, "Lays");
     pd[11].harga_barang = 2300;
-    strcpy(pd[11].kategori, "mm");
+    strcpy(pd[11].kategori, "Makanan dan Minuman");
     strcpy(pd[12].nama_barang, "Doritos");
     pd[12].harga_barang = 2100;
-    strcpy(pd[12].kategori, "mm");
+    strcpy(pd[12].kategori, "Makanan dan Minuman");
     strcpy(pd[13].nama_barang, "Chitato");
     pd[13].harga_barang = 3000;
-    strcpy(pd[13].kategori, "mm");
+    strcpy(pd[13].kategori, "Makanan dan Minuman");
     strcpy(pd[14].nama_barang, "Pringles");
     pd[14].harga_barang = 4000;
-    strcpy(pd[14].kategori, "mm");
+    strcpy(pd[14].kategori, "Makanan dan Minuman");
     strcpy(pd[15].nama_barang, "Nuka Cola");
     pd[15].harga_barang = 5000;
-    strcpy(pd[15].kategori, "mm");
+    strcpy(pd[15].kategori, "Makanan dan Minuman");
     strcpy(pd[16].nama_barang, "Sprote");
     pd[16].harga_barang = 5000;
-    strcpy(pd[16].kategori, "mm");
+    strcpy(pd[16].kategori, "Makanan dan Minuman");
     strcpy(pd[17].nama_barang, "Pepso");
     pd[17].harga_barang = 4500;
-    strcpy(pd[17].kategori, "mm");
+    strcpy(pd[17].kategori, "Makanan dan Minuman");
     strcpy(pd[18].nama_barang, "Funta");
     pd[18].harga_barang = 5000;
-    strcpy(pd[18].kategori, "mm");
+    strcpy(pd[18].kategori, "Makanan dan Minuman");
     strcpy(pd[19].nama_barang, "Teh Bundar");
     pd[19].harga_barang = 6000;
-    strcpy(pd[19].kategori, "mm");
+    strcpy(pd[19].kategori, "Makanan dan Minuman");
     //Kebutuhan rumah tangga
     strcpy(pd[20].nama_barang, "Detergen");
     pd[20].harga_barang = 30000;
-    strcpy(pd[20].kategori, "rt");
+    strcpy(pd[20].kategori, "Kebutuhan Rumah Tangga");
     strcpy(pd[21].nama_barang, "Pel");
     pd[21].harga_barang = 25000;
-    strcpy(pd[21].kategori, "rt");
+    strcpy(pd[21].kategori, "Kebutuhan Rumah Tangga");
     strcpy(pd[22].nama_barang, "Pengharum Ruangan");
     pd[22].harga_barang = 15000;
-    strcpy(pd[22].kategori, "rt");
+    strcpy(pd[22].kategori, "Kebutuhan Rumah Tangga");
     strcpy(pd[23].nama_barang, "Sabun Wajah");
     pd[23].harga_barang = 20000;
-    strcpy(pd[23].kategori, "rt");
+    strcpy(pd[23].kategori, "Kebutuhan Rumah Tangga");
     strcpy(pd[24].nama_barang, "Sabun Mandi");
     pd[24].harga_barang = 5000;
-    strcpy(pd[24].kategori, "rt");
+    strcpy(pd[24].kategori, "Kebutuhan Rumah Tangga");
     strcpy(pd[25].nama_barang, "Kemoceng");
     pd[25].harga_barang = 12000;
-    strcpy(pd[25].kategori, "rt");
+    strcpy(pd[25].kategori, "Kebutuhan Rumah Tangga");
     strcpy(pd[26].nama_barang, "Handuk");
     pd[26].harga_barang = 9000;
-    strcpy(pd[26].kategori, "rt");
+    strcpy(pd[26].kategori, "Kebutuhan Rumah Tangga");
     strcpy(pd[27].nama_barang, "Hand Sanitizer");
     pd[27].harga_barang = 10000;
-    strcpy(pd[27].kategori, "rt");
+    strcpy(pd[27].kategori, "Kebutuhan Rumah Tangga");
     strcpy(pd[28].nama_barang, "Taplak Meja");
     pd[28].harga_barang = 12000;
-    strcpy(pd[28].kategori, "rt");
+    strcpy(pd[28].kategori, "Kebutuhan Rumah Tangga");
     strcpy(pd[29].nama_barang, "Masker");
     pd[29].harga_barang = 1000;
-    strcpy(pd[29].kategori, "rt");
+    strcpy(pd[29].kategori, "Kebutuhan Rumah Tangga");
 
     length = sizeof(pd)/sizeof(pd[0]);
 
