@@ -8,7 +8,7 @@
 - Suci Ismiati (20081010162)
 
 Deskripsi Project:
-Program ini adalah sebuah program kasir dimana kita bisa mensimulasikan bagaimana proses belanja di sebuah toko. Isi atau konten dari project ini adalah membeli barang, menampilkan list barang, mengkalkulasikan total harga, dan proses checkout.
+Program ini adalah sebuah program kasir dimana kita bisa mensimulasikan bagaimana proses belanja di sebuah toko. Isi atau konten dari project ini antara lain membeli barang, menampilkan list barang, mengurutkan barang, mencari barang, melihat keranjang, mengkalkulasikan total harga, dan proses checkout.
 
 **Data yang digunakan:**
 1. Nama barang
