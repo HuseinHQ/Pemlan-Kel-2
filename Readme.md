@@ -1,4 +1,4 @@
-### Program Kasir
+### Aplikasi Kasir Toko
 ![ss aplikasi_1](https://user-images.githubusercontent.com/94363343/147431438-203a6b11-bae0-4005-9a57-065a5b773c99.jpg)
 **Anggota Kelompok:**
 - Muhammad Husein Al Hakim (20081010128)
