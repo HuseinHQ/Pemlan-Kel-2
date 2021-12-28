@@ -618,8 +618,8 @@ int main()
     garis(41);
     printf("\n");
     printf(" Silahkan pilih menu dibawah ini:\n");
-    printf("  (1) Belanja\n");
-    printf("  (2) List Harga Barang\n");
+    printf("  (1) List Barang\n");
+    printf("  (2) Belanja\n");
     printf("  (3) Sorting Barang\n");
     printf("  (4) Cari Barang\n");
     printf("  (5) Keranjang\n");
@@ -630,11 +630,11 @@ int main()
 
     switch(n){
         case 1:
-            belanja();
+            list_harga();
             lanjut();
             goto menu;
         case 2:
-        	list_harga();
+        	belanja();
         	lanjut();
         	goto menu;
         case 3:
