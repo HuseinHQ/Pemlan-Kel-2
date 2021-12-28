@@ -27,7 +27,7 @@ void garis(int x) {
 typedef struct{
 char nama_barang[30];
 int harga_barang;
-char kategori[5];
+char kategori[30];
 }produk;
 
 produk pd[30];
@@ -235,12 +235,21 @@ void search()
     {
         if(flagg==0)
         {
-            printf(" Data belum diurutkan\n");
-            printf(" Lakukan sorting terlebih dahulu!\n\n");
-            sort();
+            system("cls");
+            printf("\n  Data belum diurutkan\n");
+            printf("  Lakukan sorting berdasarkan nama barang terlebih dahulu!\n\n");
+            main();
         }
-        printf("Masukkan Nama Barang: ");
-        fflush(stdin); gets(cari);
+        else if(flagg==2)
+        {
+            system("cls");
+            printf("\n  Data telah diurutkan berdasarkan harga\n");
+            printf("  Mohon sorting data berdasarkan nama barang untuk mencari barang!\n\n");
+            main();
+        }
+
+        printf("\n Masukkan Nama Barang: ");
+        fflush(stdin); gets(cari); printf("\n");
 
         int awal = 0;
         int akhir = length-1;
@@ -261,15 +270,16 @@ void search()
             else if(strcmp(cari, pd[tengah].nama_barang)==0)
             {
                 flag = 1;
-                printf("Data ditemukan pada indeks ke-%d\n", tengah);
-                printf("Nama Barang: %s\n", pd[tengah].nama_barang);
-                printf("Harga Barang: %d\n", pd[tengah].harga_barang);
-                printf("Kategori: %s\n\n", pd[tengah].kategori);
+                printf("tengah = %d", tengah);
+                printf("  Data ditemukan pada indeks ke-%d\n", tengah);
+                printf("  Nama Barang: %s\n", pd[tengah].nama_barang);
+                printf("  Harga Barang: %d\n", pd[tengah].harga_barang);
+                printf("  Kategori: %s\n\n", pd[tengah].kategori);
                 break;
             }
         }
         if(flag == 0)
-            printf("Data tidak ditemukan\n\n");
+            printf(" Data tidak ditemukan\n\n");
     }
 }
 
@@ -316,7 +326,7 @@ void sort()
                     strcpy(pd[m+1].kategori, temp);
                 }
             }
-        }flagg+=1;
+        }flagg=1;
     }
     //Selection Sort Nama
     else if(n==1 && m==2)
@@ -342,7 +352,7 @@ void sort()
             strcpy(temp, pd[n].kategori);
             strcpy(pd[n].kategori, pd[min].kategori);
             strcpy(pd[min].kategori, temp);
-        }flagg+=1;
+        }flagg=1;
     }
     //Insertion Sort Nama
     else if(n==1 && m==3)
@@ -366,7 +376,7 @@ void sort()
 
                 m--;
             }
-        }flagg+=1;
+        }flagg=1;
     }
     //Bubble Sort Harga
     else if(n==2 && m==1)
@@ -390,7 +400,7 @@ void sort()
                     strcpy(pd[m+1].kategori, temp);
                 }
             }
-        }flagg+=1;
+        }flagg=2;
     }
     //Selection Sort Harga
     else if(n==2 && m==2)
@@ -416,7 +426,7 @@ void sort()
             strcpy(temp, pd[n].kategori);
             strcpy(pd[n].kategori, pd[min].kategori);
             strcpy(pd[min].kategori, temp);
-        }flagg+=1;
+        }flagg=2;
     }
     //Insertion Sort Harga
     else if(n==2 && m==3)
@@ -440,12 +450,17 @@ void sort()
 
                 m--;
             }
-        }flagg+=1;
+        }flagg=2;
     }
     if(flagg==1)
     {
         penanda+=1;
         printf("\n  Barang telah diurutkan sesuai nama!\n");
+    }
+    else if(flagg==2)
+    {
+        penanda+=1;
+        printf("\n  Barang telah diurutkan sesuai harga!\n");
     }
 
 }
