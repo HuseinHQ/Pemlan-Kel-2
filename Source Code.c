@@ -70,7 +70,7 @@ void belanja()
 		garis(17);
 		for(j=0; j<30; j++)
         {
-            if(strcmp(pd[j].kategori, "atk")==0)
+            if(strcmp(pd[j].kategori, "Alat Tulis")==0)
                 printf("   (%d) %s (Rp.%d)\n", j+1 , pd[j].nama_barang, pd[j].harga_barang);
         }
         printf("\n");
@@ -99,7 +99,7 @@ void belanja()
 		garis(26);
 		for(j=0; j<30; j++)
         {
-            if(strcmp(pd[j].kategori, "mm")==0)
+            if(strcmp(pd[j].kategori, "Makanan dan Minuman")==0)
                 printf("   (%d) %s (Rp.%d)\n", j-9 , pd[j].nama_barang, pd[j].harga_barang);
         }
         printf("\n");
@@ -123,12 +123,12 @@ void belanja()
         printf("\n");
 		printf("  ");
 		garis(29);
-		printf("  |  Keperluan Rumah Tangga   |\n");
+		printf("  |  Kebutuhan Rumah Tangga   |\n");
 		printf("  ");
 		garis(29);
 		for(j=0; j<30; j++)
         {
-            if(strcmp(pd[j].kategori, "rt")==0)
+            if(strcmp(pd[j].kategori, "Kebutuhan Rumah Tangga")==0)
                 printf("   (%d) %s (Rp.%d)\n", j-19 , pd[j].nama_barang, pd[j].harga_barang);
         }
         printf("\n");
@@ -161,10 +161,10 @@ void list_harga()
 	garis(25);
 	printf("|   List Harga Barang\t|\n");
 	garis(25);
-	printf("  Harga Alat Tulis\n");
 
 	if(penanda==0)
     {
+        printf("  Harga Alat Tulis\n");
         for (i=0; i<10; i++)
         {
             printf("  (%d) %s (Rp.%d)\n", i+1, pd[i].nama_barang, pd[i].harga_barang);
@@ -194,15 +194,13 @@ void list_harga()
 
 void search()
 {
-    int n, m, awal, tengah, akhir;
+    int n, awal, tengah, akhir;
     char cari[30];
     int flag = 0;
 
     printf("\n Pilih metode search yang anda inginkan:\n");
     printf("  1. Sequential Search\n");
     printf("  2. Binary Search\n");
-    printf("  3. Jump Search\n");
-    printf("  4. Interpolation Search\n");
     printf("  Masukkan pilihan:");
     scanf("%d", &n);
 
@@ -221,8 +219,9 @@ void search()
         {
             system("cls");
             printf("\n Data ditemukan pada indeks ke-%d\n", n);
-            printf("  Nama Barang: %s\n", pd[n].nama_barang);
-            printf("  Harga Barang: %d\n", pd[n].harga_barang);
+            printf("  Nama Barang  : %s\n", pd[n].nama_barang);
+            printf("  Harga Barang : %d\n", pd[n].harga_barang);
+            printf("  Kategori     : %s\n", pd[n].kategori);
         }
         else
         {
@@ -231,7 +230,7 @@ void search()
         }
     }
     //Binary Search
-    if(n==2)
+    else if(n==2)
     {
         if(flagg==0)
         {
@@ -270,7 +269,6 @@ void search()
             else if(strcmp(cari, pd[tengah].nama_barang)==0)
             {
                 flag = 1;
-                printf("tengah = %d", tengah);
                 printf("  Data ditemukan pada indeks ke-%d\n", tengah);
                 printf("  Nama Barang: %s\n", pd[tengah].nama_barang);
                 printf("  Harga Barang: %d\n", pd[tengah].harga_barang);
@@ -281,6 +279,8 @@ void search()
         if(flag == 0)
             printf(" Data tidak ditemukan\n\n");
     }
+    else
+        printf("\n Pilihan tidak tersedia!\n");
 }
 
 void sort()
